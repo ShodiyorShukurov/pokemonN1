@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemons</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/normalize.css">
+</head>
+
+<body>
+
+    <!-- SITE HEADER START -->
+    <header class="site-header">
+        <div class="container">
+            <div class="col offset-3">
+            <a class="site-header__logo-link" href="./index.html">
+                <img class="site-header__logo" src="./images/pokemon_logo.svg" width="610" height="225" alt="Pokemon">
+            </a>
+        </div>
+        </div>
+    </header>
+    <!-- SITE HEADER END -->
+
+    <!-- SITE MAIN START -->
+    <main class="site-main">
+        <section class="input-section">
+            <div class="container">
+                <div class="col-12 ">
+                    <form class="form d-flex align-items-center justify-content-center">
+                        <select class="form-control w-25">
+                            <option value="1">
+                                Gross
+                            </option>
+                            <option value="2">
+                                Gross-1
+                            </option>
+                            <option value="3">
+                                Gross-2
+                            </option>
+                        </select>
+                        <input class="form-control mx-4 w-25 input__text" type="text" placeholder="Search">
+                        <select class="form-control w-25">
+                            <option value="1">
+                                Aa-Zz
+                            </option>
+                            <option value="2">
+                                Aa-Zz-1
+                            </option>
+                            <option value="3">
+                                Aa-Zz -2
+                            </option>
+                        </select>
+                        <button class="btn  ">Button</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <section class="card-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <ul class="poko-list js-poko-list">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- SITE MAIN END -->
+
+
+    <script src="./js/pokemons.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+
+</html>
