@@ -17,10 +17,11 @@
     <header class="site-header">
         <div class="container">
             <div class="col offset-3">
-            <a class="site-header__logo-link" href="./index.html">
-                <img class="site-header__logo" src="./images/pokemon_logo.svg" width="610" height="225" alt="Pokemon">
-            </a>
-        </div>
+                <a class="site-header__logo-link" href="./index.html">
+                    <img class="site-header__logo" src="./images/pokemon_logo.svg" width="610" height="225"
+                        alt="Pokemon">
+                </a>
+            </div>
         </div>
     </header>
     <!-- SITE HEADER END -->
@@ -30,49 +31,59 @@
         <section class="input-section">
             <div class="container">
                 <div class="col-12 ">
-                    <form class="form d-flex align-items-center justify-content-center">
-                        <select class="form-control w-25">
-                            <option value="1">
-                                Gross
-                            </option>
-                            <option value="2">
-                                Gross-1
-                            </option>
-                            <option value="3">
-                                Gross-2
-                            </option>
+                    <form class="js-form d-flex align-items-center justify-content-center">
+                        <input class="js-search-input form-control me-2" type="text" placeholder="Search">
+                        <select class="js-poke-select form-select form-control me-2" name="type">
+                            <option value="weaknesses">Weaknesses</option>
                         </select>
-                        <input class="form-control mx-4 w-25 input__text" type="text" placeholder="Search">
-                        <select class="form-control w-25">
-                            <option value="1">
-                                Aa-Zz
-                            </option>
-                            <option value="2">
-                                Aa-Zz-1
-                            </option>
-                            <option value="3">
-                                Aa-Zz -2
-                            </option>
+                        <input class="js-from-count form-control me-2" type="number" name="from_year"
+                            placeholder="From...">
+                        <input class=" js-to-count form-control me-2" type="number" name="to_year"
+                            placeholder="To...">
+                        <select class="js-poke-sort form-control form-select me-2" name="select">
+                            <option selected disabled hidden>Sort by</option>
+                            <option value="a-z">A-Z</option>
+                            <option value="z-a">Z-A</option>
+                            <option value="line-height">Light to Heavy weight</option>
+                            <option value="height-line">Heavy to Light weight</option>
                         </select>
-                        <button class="btn  ">Button</button>
+                        <button class="btn" type="submit">Search</button>
                     </form>
                 </div>
             </div>
         </section>
         <section class="card-section">
             <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <ul class="poko-list js-poko-list">
-
-                        </ul>
-                    </div>
-                </div>
+                <ul class="js-poko-list poko-list row mx-auto">
+                </ul>
             </div>
         </section>
     </main>
     <!-- SITE MAIN END -->
 
+
+    <!-- TEMPLATE START -->
+    <template class="js-template">
+        <li class="poke-item__card col-4 mb-5">
+            <div class="poke-box bg-white d-flex flex-column justify-content-between w-100 p-3">
+                <span class="js-poke-num text-num"></span>
+                <img class="js-poke-img card_images img-fluid d-block mx-auto" src="https://placeholder.com/300" alt=""
+                    width="300" height="300">
+                <h3 class="js-poke-title card__title">
+
+                </h3>
+                <span class="js-poke-time time-text">17:00</span>
+                <div class="poke-about">
+                    <p class="js-poke-type type-text"> type: gross </p>
+                    <p class="js-poke-count candy-text"> Candy Count : 100 </p>
+                    <p class="js-poke-height heigh-text"> Height: 100 </p>
+                    <p class="js-poke-weight weight-text"> Weight: 59kg </p>
+                    <p class="js-poke-weak weak-text"> Weaknesses: gross </p>
+                </div>
+            </div>
+        </li>
+    </template>
+    <!-- TEMPLATE END -->
 
     <script src="./js/pokemons.js"></script>
     <script src="./js/main.js"></script>

@@ -1,67 +1,129 @@
 // GET ELEMENTS
-let elPokoList = document.querySelector(".js-poko-list");
+const elPokeList = document.querySelector(".js-poko-list");
+const elPokeTemplate = document.querySelector(".js-template").content;
 
+const elSearchForm = document.querySelector(".js-form");
+const elSearchInput = elSearchForm.querySelector(".js-search-input");
+const elSearchSelect = elSearchForm.querySelector(".js-poke-select");
+const elFromCount = elSearchForm.querySelector(".js-from-count");
+const elToCount = elSearchForm.querySelector(".js-to-count")
+const elPokeSort = elSearchForm.querySelector(".js-poke-sort")
 
 //! Fragment
-const newPokeFragment = document.createDocumentFragment();
 const newFilmFragment = new DocumentFragment();
 
 
-for (let i = 0; i < pokemons.length; i++) {
+// GENERATED WEAK
+const newArr = [];
+function pushPoke() {
+    pokemons.forEach((poke) => {
+        poke.weaknesses.forEach((weak) => {
+            if (!newArr.includes(weak)) {
+                newArr.push(weak)
+            }
+        });
+    });
+    newArr.sort();
+}
 
-    // Create element
-    let newPokeItem = document.createElement("li");
-    let newPokeNum = document.createElement("span");
-    let newImgDiv = document.createElement("div");
-    let newTextDiv = document.createElement("div");
-    let newPokeImg = document.createElement("img");
-    let newPokeTitle = document.createElement("h3");
-    let newPokeType = document.createElement("span");
-    let newDivAbout = document.createElement("div");
-    let newPokeHeight = document.createElement("p");
-    let newPokeWeight = document.createElement("p");
-    let newPokeTime = document.createElement("time");
+pushPoke()
 
-    // Add value
-    newPokeNum.textContent = pokemons[i].num
-    newPokeImg.src = pokemons[i].img;
-    newPokeImg.alt = pokemons[i].name;
-    newPokeImg.width = "157";
-    newPokeImg.height = "157";
-    newPokeTitle.textContent = pokemons[i].name;
-    newPokeType.textContent = pokemons[i].type.join(", ");
-    newPokeHeight.textContent = "Height: " + pokemons[i].height;
-    newPokeWeight.textContent = "Weight: " + pokemons[i].weight;
-    newPokeTime.textContent = pokemons[i].spawn_time;
-    newPokeTime.setAttribute("datatime", `2023-02-06 ${pokemons[i].spawn_time}`);
+function renderWeaknesses(_weak) {
+    _weak.forEach((weak) => {
+        const newOption = document.createElement("option");
+        newOption.value = weak;
+        newOption.textContent = weak;
+        elSearchSelect.appendChild(newOption);
+    })
 
-    // Append elements
-    newPokeItem.appendChild(newPokeNum);
-    newImgDiv.appendChild(newPokeImg);
-    newTextDiv.appendChild(newPokeTitle)
-    newTextDiv.appendChild(newPokeType);
-    newDivAbout.append(newPokeHeight, newPokeWeight);
-    newTextDiv.appendChild(newDivAbout);
-    newPokeItem.appendChild(newImgDiv);
-    newPokeItem.appendChild(newTextDiv);
-    newPokeItem.appendChild(newPokeTime);
+}
+renderWeaknesses(newArr)
 
-    // Add element class
-    newPokeItem.classList.add("poke-item__card");
-    newPokeNum.classList.add("text-num")
-    newImgDiv.classList.add("card_images");
-    newTextDiv.classList.add("card__text");
-    newPokeTitle.classList.add("card__title");
-    newPokeType.classList.add("card__subtitle");
-    newDivAbout.classList.add("card-abouts");
-    newPokeHeight.classList.add("card-about");
-    newPokeWeight.classList.add("card-about");
-    newPokeTime.classList.add("time-text");
+//  RENDER FUNCTION
+function renderPoke(_pokemons) {
 
-    // Parent element child append
-    newPokeFragment.appendChild(newPokeItem);
+    elPokeList.innerHTML = null;
+
+    _pokemons.forEach((poke) => {
+
+        const cloneNewTemp = elPokeTemplate.cloneNode(true);
+        cloneNewTemp.querySelector(".js-poke-num").textContent = poke.id
+        cloneNewTemp.querySelector(".js-poke-img").src = poke.img;
+        cloneNewTemp.querySelector(".js-poke-img").alt = poke.name;
+        cloneNewTemp.querySelector(".js-poke-title").textContent = "Name: " + poke.name;
+        cloneNewTemp.querySelector(".js-poke-time").textContent = poke.spawn_time;
+        cloneNewTemp.querySelector(".js-poke-type").innerHTML = `<p class="text-subtitle">Type: </p> ${poke.type.join(", ")}`;
+        cloneNewTemp.querySelector(".js-poke-count").innerHTML = `<p class="text-subtitle">Candy count: </p> ${poke.candy_count}`;
+        cloneNewTemp.querySelector(".js-poke-height").innerHTML = `<p class="text-subtitle">Height: </p> ${poke.height}`;
+        cloneNewTemp.querySelector(".js-poke-weight").innerHTML = `<p class="text-subtitle">Weight: </p> ${poke.weight}`;
+        cloneNewTemp.querySelector(".js-poke-weak").innerHTML = `<p class="text-subtitle">Weight: </p> ${poke.weaknesses.join(", ")}`;
+
+        newFilmFragment.appendChild(cloneNewTemp);
+    });
+
+    elPokeList.appendChild(newFilmFragment);
+}
 
 
-};
+function showSearchPoke(search) {
+    const filterPokemon = pokemons.filter(
+        (poke) =>
+            String(poke.name).match(search) &&
+            (elSearchSelect.value === "weaknesses" ||
+                poke.weaknesses.includes(elSearchSelect.value)) &&
+            (elFromCount.value === "" || poke.candy_count >= elFromCount.value) &&
+            (elToCount.value === "" || poke.candy_count <= elToCount.value)
+    )
+    return filterPokemon;
+}
 
-elPokoList.appendChild(newPokeFragment);
+
+function sortPokemons(pokemon, pokeType) {
+    if (pokeType === "a-z") {
+        pokemon.sort((a, b) => {
+            if (a.name > b.name) {
+                return 1;
+            } else if (a.name < b.name) {
+                return -1;
+            } else {
+                return 0;
+            }
+        })
+    }
+    if (pokeType === "z-a") {
+        pokemon.sort((a, b) => {
+            if (a.name < b.name) {
+                return 1;
+            } else if (a.name > b.name) {
+                return -1;
+            } else {
+                return 0;
+            }
+        })
+    }
+    if (pokeType = "line-height") {
+        pokemon.sort((a, b) => {
+            return a.candy_count - b.candy_count
+        })
+    }
+    if(pokeType = "heigh-line"){
+        pokemon.sort((a,b)=>{
+            return b.candy_count- a.candy_count
+        })
+    }
+}
+elSearchForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    const inputValue = elSearchInput.value.trim();
+    const searchQuery = new RegExp(inputValue, "gi")
+    const searchPoke = showSearchPoke(searchQuery);
+
+    sortPokemons(searchPoke, elPokeSort.value)
+    if (searchPoke.length > 0) {
+        renderPoke(searchPoke);
+    } else {
+        elPokeList.innerHTML = `<div class="text-white text-center display-6">Not Pokemons</div>`
+    }
+})
+renderPoke(pokemons);
